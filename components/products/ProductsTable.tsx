@@ -290,8 +290,7 @@ export default function ProductsTable() {
    const dispatch = useDispatch();
   const products = useSelector((state: any) => state.products.list);
   React.useEffect(() => {
-    dispatch(setProducts([1,2,3]));
-    // dispatch(fetchProducts());
+    dispatch(fetchProducts());
     console.log(products)
   }, [dispatch]);
   const renderFilters = () => (
