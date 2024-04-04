@@ -7,12 +7,11 @@ import Typography from "@mui/joy/Typography";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 import ProductsTable from "../../components/products/ProductsTable";
 import ProductsList from "../../components/products/ProductsList";
 import RootLayout from "../../components/Layout";
-
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 function ProductsPage() {
   return (
     <Box
@@ -78,11 +77,11 @@ function ProductsPage() {
           Products
         </Typography>
         <Button
-          color="primary"
-          startDecorator={<DownloadRoundedIcon />}
+          className="bg-blue-500"
+          startDecorator={<AddTwoToneIcon />}
           size="sm"
         >
-          Download PDF
+          Add Product
         </Button>
       </Box>
       <ProductsTable />

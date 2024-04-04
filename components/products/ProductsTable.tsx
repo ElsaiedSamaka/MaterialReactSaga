@@ -291,7 +291,6 @@ export default function ProductsTable() {
   const products = useSelector((state: any) => state.products.list);
   React.useEffect(() => {
     dispatch(fetchProducts());
-    console.log(products)
   }, [dispatch]);
   const renderFilters = () => (
     <React.Fragment>
