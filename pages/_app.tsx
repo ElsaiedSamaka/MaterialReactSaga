@@ -1,9 +1,15 @@
 import "@fontsource/inter";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
-import { CssVarsProvider, StyledEngineProvider,ThemeProvider } from "@mui/joy/styles";
+import {
+  CssVarsProvider,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import { Provider } from "react-redux";
+// import { PersistGate } from "redux-persist/integration/react";
+import  store  from "../core/store/configureStore";
 
 function MyApp({ Component, pageProps }: AppProps) {
   // If page layout is available, use it. Else return the page
@@ -14,11 +20,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider>
         <CssVarsProvider>
           <CssBaseline />
-
-          {/* <Layout> */}
-          {getLayout(<Component {...pageProps} />)}
-
-          {/* </Layout> */}
+          {/* <PersistGate loading={null} persistor={persistor}> */}
+            <Provider store={store}>
+              {/* <Layout> */}
+              {getLayout(<Component {...pageProps} />)}
+              {/* </Layout> */}
+            </Provider>
+          {/* </PersistGate> */}
         </CssVarsProvider>
       </ThemeProvider>
     </StyledEngineProvider>

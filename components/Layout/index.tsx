@@ -1,11 +1,11 @@
 import Sidebar from "./Sidebar";
 import { Box } from "@mui/joy";
-const RootLayout = ({ children }:any) => {
+const RootLayout = ({ children }: any) => {
   return (
-      <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-        <Sidebar />
-        {children}
-      </Box>
+    <Box sx={{ display: "flex", minHeight: "100dvh" }}>
+      <Sidebar />
+      {children}
+    </Box>
   );
 };
 
