@@ -12,6 +12,8 @@ import ProductsTable from "../../components/products/ProductsTable";
 import ProductsList from "../../components/products/ProductsList";
 import RootLayout from "../../components/Layout";
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import { Add } from "@mui/icons-material";
+import { DialogContent, DialogTitle, FormControl, FormLabel, Input, Modal, ModalDialog, Stack } from "@mui/joy";
 function ProductsPage() {
   return (
     <Box
@@ -84,6 +86,7 @@ function ProductsPage() {
           Add Product
         </Button>
       </Box>
+      <BasicModalDialog />
       <ProductsTable />
       <ProductsList />
     </Box>
@@ -94,3 +97,45 @@ ProductsPage.getLayout = (page: any) => {
 };
 
 export default ProductsPage;
+
+
+
+function BasicModalDialog() {
+  const [open, setOpen] = React.useState<boolean>(false);
+  return (
+    <React.Fragment>
+      <Button
+        variant="outlined"
+        color="neutral"
+        startDecorator={<Add />}
+        onClick={() => setOpen(true)}
+      >
+        New project
+      </Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalDialog>
+          <DialogTitle>Create new project</DialogTitle>
+          <DialogContent>Fill in the information of the project.</DialogContent>
+          <form
+            onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+              event.preventDefault();
+              setOpen(false);
+            }}
+          >
+            <Stack spacing={2}>
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input autoFocus required />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Description</FormLabel>
+                <Input required />
+              </FormControl>
+              <Button type="submit">Submit</Button>
+            </Stack>
+          </form>
+        </ModalDialog>
+      </Modal>
+    </React.Fragment>
+  );
+}
