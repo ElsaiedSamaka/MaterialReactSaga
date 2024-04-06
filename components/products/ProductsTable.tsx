@@ -35,7 +35,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, setProducts } from "../../core/actions";
+import { fetchProducts, setProducts } from "../../core/actions/products.actions";
 
 const rows = [
   {
@@ -289,9 +289,9 @@ export default function ProductsTable() {
   const [open, setOpen] = React.useState(false);
    const dispatch = useDispatch();
   const products = useSelector((state: any) => state.products.list);
-  React.useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  // React.useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
   const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">

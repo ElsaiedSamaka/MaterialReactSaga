@@ -15,7 +15,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
 const store = createStore(
-  persistedReducer,
+  rootReducer,
   applyMiddleware(sagaMiddleware, createLogger)
 );
 
