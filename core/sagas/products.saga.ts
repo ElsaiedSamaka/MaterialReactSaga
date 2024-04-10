@@ -1,15 +1,21 @@
-import { put, call,takeLatest } from "redux-saga/effects";
-import { FETCH_PRODUCTS,CREATE_PRODUCT,UPDATE_PRODUCT,DELETE_PRODUCT } from "../actions/products.types";
+import { put, call, takeLatest } from "redux-saga/effects";
+import {
+  FETCH_PRODUCTS,
+  FETCH_PRODUCTS_ERROR,
+  CREATE_PRODUCT,
+  UPDATE_PRODUCT,
+  DELETE_PRODUCT,
+} from "../actions/products.types";
 import { setProducts } from "../actions/products.actions";
 import productsServices from "../services/products.service";
 
 function* fetchProducts() {
   try {
-    // Fetch products from API 
+    // Fetch products from API
     const products: any = yield call(productsServices.get);
     yield put(setProducts(products));
   } catch (error) {
-    // Handle error
+    yield put({ type: FETCH_PRODUCTS_ERROR, payload: error.message });
   }
 }
 
@@ -23,19 +29,19 @@ function* fetchProducts() {
 //   }
 // }
 
-// function* createProduct({ payload }:any) {
-//   try {
-//     // Assuming you have an API endpoint to create a product
-//     const response = yield call(productsServices.post,payload);
-//     let newProduct = response;
+function* createProduct({ payload }: any) {
+  try {
+    // call API endpoint to create a product
+    const response = yield call(productsServices.postMultiPartFormData, payload);
+    console.log("response", response);
+    let newProduct = response;
 
-//      console.log('response',response)
-//     // Dispatch an action to update state with the new product
-//     yield put(setProducts([...products, newProduct]));
-//   } catch (error) {
-//     // Handle error
-//   }
-// }
+    // Dispatch an action to update state with the new product
+    yield put(setProducts([...products, newProduct]));
+  } catch (error) {
+    // Handle error
+  }
+}
 
 // function* updateProduct({ payload }) {
 //   try {
@@ -72,8 +78,6 @@ function* fetchProducts() {
 //     // Handle error
 //   }
 // }
-
-
 // function* deleteProduct({ payload }) {
 //   try {
 //     // Send API request to delete product with payload as productId
@@ -101,7 +105,7 @@ function* fetchProducts() {
 
 export function* productsSaga() {
   yield takeLatest(FETCH_PRODUCTS, fetchProducts);
-  // yield takeLatest(CREATE_PRODUCT, createProduct);
+  yield takeLatest(CREATE_PRODUCT, createProduct);
   // yield takeLatest(UPDATE_PRODUCT, updateProduct);
   // yield takeLatest(DELETE_PRODUCT, deleteProduct);
 }

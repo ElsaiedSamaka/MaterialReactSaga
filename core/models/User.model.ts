@@ -3,7 +3,7 @@ export interface User {
   lastname: string;
   email: string;
   username?: string;
-  role: 'user' | 'admin' | 'seller';
+  role: "user" | "admin" | "seller";
   phone?: string;
   isEmailVerified: boolean;
   address?: string;

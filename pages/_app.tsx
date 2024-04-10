@@ -9,7 +9,7 @@ import {
 import CssBaseline from "@mui/joy/CssBaseline";
 import { Provider } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
-import  store  from "../core/store/configureStore";
+import store from "../core/store/configureStore";
 
 function MyApp({ Component, pageProps }: AppProps) {
   // If page layout is available, use it. Else return the page
@@ -21,11 +21,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CssVarsProvider>
           <CssBaseline />
           {/* <PersistGate loading={null} persistor={persistor}> */}
-            <Provider store={store}>
-              {/* <Layout> */}
-              {getLayout(<Component {...pageProps} />)}
-              {/* </Layout> */}
-            </Provider>
+          <Provider store={store}>
+            {/* <Layout> */}
+            {getLayout(<Component {...pageProps} />)}
+            {/* </Layout> */}
+          </Provider>
           {/* </PersistGate> */}
         </CssVarsProvider>
       </ThemeProvider>

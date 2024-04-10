@@ -11,9 +11,20 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import ProductsTable from "../../components/products/ProductsTable";
 import ProductsList from "../../components/products/ProductsList";
 import RootLayout from "../../components/Layout";
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 import { Add } from "@mui/icons-material";
-import { DialogContent, DialogTitle, FormControl, FormLabel, Input, Modal, ModalDialog, Stack } from "@mui/joy";
+import {
+  Select,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalDialog,
+  Stack,
+  Option,
+} from "@mui/joy";
 function ProductsPage() {
   return (
     <Box
@@ -78,13 +89,6 @@ function ProductsPage() {
         <Typography level="h2" component="h1">
           Products
         </Typography>
-        <Button
-          className="bg-blue-500"
-          startDecorator={<AddTwoToneIcon />}
-          size="sm"
-        >
-          Add Product
-        </Button>
       </Box>
       <BasicModalDialog />
       <ProductsTable />
@@ -97,45 +101,118 @@ ProductsPage.getLayout = (page: any) => {
 };
 
 export default ProductsPage;
-
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../../core/actions/products.actions";
 
 function BasicModalDialog() {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    img: null
+  });
+
+  const dispatch = useDispatch();
+
+  const handleInputChange = (e) => {
+    if (e && e.target && e.target.name) {
+      // Check if e and e.target are not null
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+  const handleFileUpload = (e)=>{
+     const file = event.target.files[0];
+     setFormData({
+        ...formData,
+       img: file
+     })
+  }
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log("formData", formData);
+    dispatch(createProduct(formData));
+    // setOpen(false);
+  };
+
   return (
-    <React.Fragment>
+    <>
       <Button
         variant="outlined"
         color="neutral"
-        startDecorator={<Add />}
+        startIcon={<Add />}
         onClick={() => setOpen(true)}
       >
-        New project
+        New product
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
-          <DialogTitle>Create new project</DialogTitle>
-          <DialogContent>Fill in the information of the project.</DialogContent>
-          <form
-            onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-              event.preventDefault();
-              setOpen(false);
-            }}
-          >
+          <DialogTitle>Create new product</DialogTitle>
+          <DialogContent>Fill in the information of the product.</DialogContent>
+          <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
-              <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input autoFocus required />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Description</FormLabel>
-                <Input required />
-              </FormControl>
-              <Button type="submit">Submit</Button>
+              <Button variant="contained" component="label">
+                Upload File
+                <input type="file" name="img" onChange={handleFileUpload} hidden />
+              </Button>
+              <div className="flex space-x-2">
+                <FormControl>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    autoFocus
+                    required
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Description</FormLabel>
+                  <Input
+                    required
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </div>
+              <div className="flex space-x-2">
+                <FormControl>
+                  <FormLabel>Price</FormLabel>
+                  <Input
+                    required
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    color="neutral"
+                    placeholder="Choose one…"
+                    variant="outlined"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                  >
+                    <Option>...</Option>
+                  </Select>
+                </FormControl>
+              </div>
+              <Button className="bg-black p-2 rounded text-white" type="submit">
+                Submit
+              </Button>
             </Stack>
           </form>
         </ModalDialog>
       </Modal>
-    </React.Fragment>
+    </>
   );
 }

@@ -1,10 +1,10 @@
 /* eslint-disable no-useless-catch */
-import apiservice from './api.service';
+import apiservice from "./api.service";
 
 const productsService = {
   post: async (body: object) => {
     try {
-      const response = await apiservice.post('product', body, {});
+      const response = await apiservice.post("product", body, {});
       return response;
     } catch (error) {
       throw error;
@@ -13,8 +13,8 @@ const productsService = {
 
   postMultiPartFormData: async (body: object) => {
     try {
-      const response = await apiservice.post('product', body, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const response = await apiservice.post("product", body, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return response;
     } catch (error) {
@@ -24,7 +24,7 @@ const productsService = {
 
   get: async () => {
     try {
-      const response = await apiservice.get('product');
+      const response = await apiservice.get("product");
       return response.data;
     } catch (error) {
       throw error;
@@ -58,7 +58,7 @@ const productsService = {
 
   removeAll: async (ids: []) => {
     try {
-      const response = await apiservice.post('product/remove-all', ids, {});
+      const response = await apiservice.post("product/remove-all", ids, {});
       return response;
     } catch (error) {
       throw error;

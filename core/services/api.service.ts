@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { axiosClient, axiosConfig } from './axios.client';
+import { axiosClient, axiosConfig } from "./axios.client";
 
 const base_url = process.env.NEXT_PUBLIC_BASE_URL;
 
