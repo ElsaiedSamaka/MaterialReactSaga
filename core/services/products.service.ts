@@ -14,7 +14,9 @@ const productsService = {
   postMultiPartFormData: async (body: object) => {
     try {
       const response = await apiservice.post("product", body, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       return response;
     } catch (error) {

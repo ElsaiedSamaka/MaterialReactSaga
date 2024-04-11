@@ -32,7 +32,10 @@ function* fetchProducts() {
 function* createProduct({ payload }: any) {
   try {
     // call API endpoint to create a product
-    const response = yield call(productsServices.postMultiPartFormData, payload);
+    const response = yield call(
+      productsServices.postMultiPartFormData,
+      payload,
+    );
     console.log("response", response);
     let newProduct = response;
 

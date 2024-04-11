@@ -11,8 +11,6 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import ProductsTable from "../../components/products/ProductsTable";
 import ProductsList from "../../components/products/ProductsList";
 import RootLayout from "../../components/Layout";
-import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
-import { Add } from "@mui/icons-material";
 import {
   Select,
   DialogContent,
@@ -112,12 +110,14 @@ function BasicModalDialog() {
     description: "",
     price: "",
     category: "",
-    img: null
+    img: null,
+    colors: "",
+    sizes: "",
   });
 
   const dispatch = useDispatch();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     if (e && e.target && e.target.name) {
       // Check if e and e.target are not null
       setFormData({
@@ -126,15 +126,15 @@ function BasicModalDialog() {
       });
     }
   };
-  const handleFileUpload = (e)=>{
-     const file = event.target.files[0];
-     setFormData({
-        ...formData,
-       img: file
-     })
-  }
+  const handleFileUpload = (e: any) => {
+    const file = event?.target?.files[0];
+    setFormData({
+      ...formData,
+      img: file,
+    });
+  };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = (event: any) => {
     event.preventDefault();
     console.log("formData", formData);
     dispatch(createProduct(formData));
@@ -143,12 +143,7 @@ function BasicModalDialog() {
 
   return (
     <>
-      <Button
-        variant="outlined"
-        color="neutral"
-        startIcon={<Add />}
-        onClick={() => setOpen(true)}
-      >
+      <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
         New product
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -157,9 +152,14 @@ function BasicModalDialog() {
           <DialogContent>Fill in the information of the product.</DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
-              <Button variant="contained" component="label">
+              <Button component="label">
                 Upload File
-                <input type="file" name="img" onChange={handleFileUpload} hidden />
+                <input
+                  type="file"
+                  name="img"
+                  onChange={handleFileUpload}
+                  hidden
+                />
               </Button>
               <div className="flex space-x-2">
                 <FormControl>
@@ -202,8 +202,30 @@ function BasicModalDialog() {
                     value={formData.category}
                     onChange={handleInputChange}
                   >
-                    <Option>...</Option>
+                    <Option value="1">1</Option>
+                    <Option value="2">1</Option>
+                    <Option value="3">1</Option>
                   </Select>
+                </FormControl>
+              </div>
+              <div className="flex space-x-2">
+                <FormControl>
+                  <FormLabel>Colors</FormLabel>
+                  <Input
+                    required
+                    name="colors"
+                    value={formData.colors}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Sizes</FormLabel>
+                  <Input
+                    required
+                    name="sizes"
+                    value={formData.sizes}
+                    onChange={handleInputChange}
+                  />
                 </FormControl>
               </div>
               <Button className="bg-black p-2 rounded text-white" type="submit">
