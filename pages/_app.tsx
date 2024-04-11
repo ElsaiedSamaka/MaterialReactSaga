@@ -4,12 +4,20 @@ import type { AppProps } from "next/app";
 import {
   CssVarsProvider,
   StyledEngineProvider,
-  ThemeProvider,
 } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { Provider } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
 import store from "../core/store/configureStore";
+import {ThemeProvider, createTheme } from "@mui/material";
+
+// Create a theme instance
+const theme = createTheme({
+  zIndex: {
+    drawer: 1200, // Example value
+  },
+  // Other theme configurations...
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   // If page layout is available, use it. Else return the page
@@ -17,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // if it does we call it with the page and if it not then we return the page as it is
   return (
     <StyledEngineProvider>
-      <ThemeProvider>
+      <ThemeProvider theme={theme}>
         <CssVarsProvider>
           <CssBaseline />
           {/* <PersistGate loading={null} persistor={persistor}> */}

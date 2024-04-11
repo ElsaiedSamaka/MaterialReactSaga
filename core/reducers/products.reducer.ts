@@ -5,7 +5,7 @@ import {
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
   FETCH_PRODUCTS_ERROR,
-} from "../actions/products.types";
+} from "../actions/products/products.types";
 
 const initialState = {
   items: [],

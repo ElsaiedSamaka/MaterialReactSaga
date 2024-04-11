@@ -5,11 +5,11 @@ import {
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
-} from "../actions/products.types";
-import { setProducts } from "../actions/products.actions";
+} from "../actions/products/products.types";
+import { setProducts } from "../actions/products/products.actions";
 import productsServices from "../services/products.service";
 
-function* fetchProducts() {
+function* fetchProducts(): Generator<any, void, any> {
   try {
     // Fetch products from API
     const products: any = yield call(productsServices.get);
@@ -29,14 +29,13 @@ function* fetchProducts() {
 //   }
 // }
 
-function* createProduct({ payload }: any) {
+function* createProduct({ payload }: any): Generator<any, void, any> {
   try {
     // call API endpoint to create a product
     const response = yield call(
       productsServices.postMultiPartFormData,
-      payload,
+      payload
     );
-    console.log("response", response);
     let newProduct = response;
 
     // Dispatch an action to update state with the new product
@@ -46,7 +45,7 @@ function* createProduct({ payload }: any) {
   }
 }
 
-// function* updateProduct({ payload }) {
+// function* updateProduct({ payload }): Generator<any, void, any> {
 //   try {
 //     const { productId, updatedData } = payload;
 //     // Send API request to update product with productId and updatedData
@@ -57,7 +56,7 @@ function* createProduct({ payload }: any) {
 //   }
 // }
 
-// function* updateProduct({ payload }) {
+// function* updateProduct({ payload }): Generator<any, void, any> {
 //   try {
 //     const { productId, updatedData } = payload;
 
@@ -81,7 +80,7 @@ function* createProduct({ payload }: any) {
 //     // Handle error
 //   }
 // }
-// function* deleteProduct({ payload }) {
+// function* deleteProduct({ payload }): Generator<any, void, any> {
 //   try {
 //     // Send API request to delete product with payload as productId
 //     // const response = yield call(api.deleteProduct, payload);
@@ -91,7 +90,7 @@ function* createProduct({ payload }: any) {
 //   }
 // }
 
-// function* deleteProduct({ payload }) {
+// function* deleteProduct({ payload }): Generator<any, void, any> {
 //   try {
 //     // Assuming you have an API endpoint to delete a product
 //     yield fetch(`https://api.example.com/products/${payload}`, {

@@ -40,7 +40,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProducts,
   setProducts,
-} from "../../core/actions/products.actions";
+} from "../../core/actions/products/products.actions";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {

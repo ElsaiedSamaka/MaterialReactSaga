@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../reducers";
 import rootSaga from "../sagas";
-import sagaMonitor from "@redux-saga/simple-saga-monitor";
 import createLogger from "redux-logger";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -12,9 +11,9 @@ const persistConfig = {
   storage,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
+const store:any = createStore(
   rootReducer,
   applyMiddleware(sagaMiddleware, createLogger),
 );

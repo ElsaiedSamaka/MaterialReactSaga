@@ -101,7 +101,7 @@ ProductsPage.getLayout = (page: any) => {
 export default ProductsPage;
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createProduct } from "../../core/actions/products.actions";
+import { createProduct } from "../../core/actions/products/products.actions";
 
 function BasicModalDialog() {
   const [open, setOpen] = useState(false);
@@ -136,7 +136,6 @@ function BasicModalDialog() {
 
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
-    console.log("formData", formData);
     dispatch(createProduct(formData));
     // setOpen(false);
   };
