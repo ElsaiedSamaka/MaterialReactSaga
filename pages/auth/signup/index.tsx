@@ -20,6 +20,8 @@ import GoogleIcon from "./GoogleIcon";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../core/actions/auth/auth.actions";
+import { Toaster } from "../../../components/shared";
+import { useRouter } from "next/router";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -35,6 +37,7 @@ export default function SignUp() {
   const authSlice = useSelector((state: any) => state.auth);
   const { user, loading, error } = authSlice;
   const dispatch = useDispatch();
+  const router = useRouter()
   return (
     <>
       <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
@@ -47,6 +50,8 @@ export default function SignUp() {
             },
           }}
         />
+        {error && <Toaster type='danger' message={error} />}
+        {user && <Toaster type='success' message='user created successfully' />}
         <Box
           sx={(theme) => ({
             width: { xs: "100%", md: "50vw" },
@@ -154,6 +159,7 @@ export default function SignUp() {
                       persistent: formElements.persistent.checked,
                     };
                     dispatch(signup(data));
+                    user && router.push('/products')
                   }}
                 >
                   <FormControl required>

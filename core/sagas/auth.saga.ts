@@ -6,6 +6,9 @@ import {
   SIGN_IN_ERROR,
   SIGN_UP_ERROR,
   SIGN_OUT_ERROR,
+  SIGN_IN_SUCCESS,
+  SIGN_UP_SUCCESS,
+  SIGN_OUT_SUCCESS,
 } from "../actions/auth/auth.types";
 import authServices from "../services/auth.service";
 
@@ -24,6 +27,7 @@ function* signup(action: any): Generator<any, void, any> {
   try {
     const payload = action.payload;
     const response = yield call(authServices.signup, payload);
+    yield put({ type: SIGN_UP_SUCCESS, payload: response.user });
   } catch (error: any) {
     // Handle error
     const errorMssg = error.response.data.error.message;
