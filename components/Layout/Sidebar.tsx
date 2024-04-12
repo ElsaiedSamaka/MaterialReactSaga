@@ -15,7 +15,7 @@ import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
 import { signout } from "../../core/actions/auth/auth.actions";
-
+        import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -120,18 +120,20 @@ export default function Sidebar() {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Avatar
-          variant="outlined"
-          size="sm"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-        />
+
+        <AccountCircleTwoToneIcon />
         <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">{ user?.firstname + user?.lastname}</Typography>
-          <Typography level="body-xs">{ user?.email }</Typography>
+          <Typography level="body-xs">{user?.email?user?.email : 'please login'}</Typography>
         </Box>
-        <IconButton size="sm" variant="plain" color="neutral" onClick={() => {
-         dispatch(signout(tokens?.refreshToken))
-        }}>
+        <IconButton
+          size="sm"
+          variant="plain"
+          color="neutral"
+          disabled={!user}
+          onClick={() => {
+            dispatch(signout(tokens?.refreshToken));
+          }}
+        >
           <LogoutRoundedIcon />
         </IconButton>
       </Box>
