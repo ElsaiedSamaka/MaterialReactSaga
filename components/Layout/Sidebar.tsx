@@ -132,6 +132,7 @@ export default function Sidebar() {
           disabled={!user}
           onClick={() => {
             dispatch(signout(tokens?.refreshToken));
+            router.push("/auth/signin");
           }}
         >
           <LogoutRoundedIcon />
