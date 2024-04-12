@@ -132,6 +132,7 @@ function BasicModalDialog() {
       ...formData,
       img: file,
     });
+    console.log('file',file)
   };
 
   const handleFormSubmit = (event: any) => {
@@ -151,13 +152,11 @@ function BasicModalDialog() {
           <DialogContent>Fill in the information of the product.</DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
-              <Button component="label">
-                Upload File
+            <Button component="label">
                 <input
                   type="file"
                   name="img"
                   onChange={handleFileUpload}
-                  hidden
                 />
               </Button>
               <div className="flex space-x-2">
