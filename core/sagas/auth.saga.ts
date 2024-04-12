@@ -16,7 +16,7 @@ function* signin(action: any): Generator<any, void, any> {
   try {
     const payload = action.payload;
     const response = yield call(authServices.signin, payload);
-    yield put({ type: SIGN_IN_SUCCESS, payload: response.user });
+    yield put({ type: SIGN_IN_SUCCESS, payload: {user: response.user,tokens:response.tokens} });
   } catch (error: any) {
     // Handle error
     const errorMssg = error.response.data.message;
@@ -28,7 +28,10 @@ function* signup(action: any): Generator<any, void, any> {
   try {
     const payload = action.payload;
     const response = yield call(authServices.signup, payload);
-    yield put({ type: SIGN_UP_SUCCESS, payload: response.user });
+    yield put({
+      type: SIGN_UP_SUCCESS,
+      payload: { user: response.user, tokens: response.tokens },
+    });
   } catch (error: any) {
     // Handle error
     const errorMssg = error.response.data.error.message;
@@ -36,9 +39,12 @@ function* signup(action: any): Generator<any, void, any> {
   }
 }
 
-function* logout(payload: any): Generator<any, void, any> {
+function* logout(action: any): Generator<any, void, any> {
   try {
-    const response = yield call(authServices.signout, payload);
+        const payload = action.payload;
+
+    const response = yield call(authServices.signout, { refreshToken: payload });
+    yield put({ type: SIGN_OUT_SUCCESS });
   } catch (error: any) {
     // Handle error
     const errorMssg = error.response.data.error.message;
@@ -54,36 +60,32 @@ export function* authSaga() {
 
 // function* resetPassword() {
 //   try {
-//     const products: any = yield call(productsServices.get);
-//     yield put(setProducts(products));
+// 
 //   } catch (error) {
-//     yield put({ type: FETCH_PRODUCTS_ERROR, payload: error.message });
+// 
 //   }
 // }
 
 // function* verifyEmail() {
 //   try {
-//     const products: any = yield call(productsServices.get);
-//     yield put(setProducts(products));
+// 
 //   } catch (error) {
-//     yield put({ type: FETCH_PRODUCTS_ERROR, payload: error.message });
+// 
 //   }
 // }
 
 // function* sendVerificationEmail() {
 //   try {
-//     const products: any = yield call(productsServices.get);
-//     yield put(setProducts(products));
+// 
 //   } catch (error) {
-//     yield put({ type: FETCH_PRODUCTS_ERROR, payload: error.message });
+// 
 //   }
 // }
 
 // function* changePassword() {
 //   try {
-//     const products: any = yield call(productsServices.get);
-//     yield put(setProducts(products));
+//
 //   } catch (error) {
-//     yield put({ type: FETCH_PRODUCTS_ERROR, payload: error.message });
+// 
 //   }
 // }

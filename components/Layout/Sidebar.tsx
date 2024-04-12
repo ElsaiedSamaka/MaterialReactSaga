@@ -14,9 +14,16 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
+import { signout } from "../../core/actions/auth/auth.actions";
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 export default function Sidebar() {
+  const authSlice = useSelector((state: any) => state.auth);
+  const { user, loading, error,tokens } = authSlice;
+  const dispatch = useDispatch();
+  const router = useRouter();
   return (
     <Sheet
       className="Sidebar"
@@ -119,10 +126,12 @@ export default function Sidebar() {
           src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
         />
         <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">Siriwat K.</Typography>
-          <Typography level="body-xs">siriwatk@test.com</Typography>
+          <Typography level="title-sm">{ user?.firstname + user?.lastname}</Typography>
+          <Typography level="body-xs">{ user?.email }</Typography>
         </Box>
-        <IconButton size="sm" variant="plain" color="neutral">
+        <IconButton size="sm" variant="plain" color="neutral" onClick={() => {
+         dispatch(signout(tokens?.refreshToken))
+        }}>
           <LogoutRoundedIcon />
         </IconButton>
       </Box>

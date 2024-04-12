@@ -14,6 +14,7 @@ const initialState = {
   user: null,
   loading: false,
   error: null,
+  tokens: null,
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -58,16 +59,18 @@ const authReducer = (state = initialState, action: any) => {
     case SIGN_IN_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
         loading: false,
         error: null,
+        tokens: action.payload.tokens
       };
     case SIGN_UP_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
         loading: false,
         error: null,
+        tokens: action.payload.tokens,
       };
     case SIGN_OUT_SUCCESS:
       return {
@@ -75,6 +78,7 @@ const authReducer = (state = initialState, action: any) => {
         user: null,
         loading: false,
         error: null,
+        tokens:null
       };
     default:
       return state;

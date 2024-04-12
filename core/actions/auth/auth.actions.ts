@@ -16,3 +16,8 @@ export const signup = (payload: any) => ({
   type: SIGN_UP,
   payload: payload,
 });
+
+export const signout = (payload: any) => ({
+  type: SIGN_OUT,
+  payload: payload,
+});
