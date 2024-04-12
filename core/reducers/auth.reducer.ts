@@ -5,6 +5,9 @@ import {
   SIGN_IN_ERROR,
   SIGN_UP_ERROR,
   SIGN_OUT_ERROR,
+  SIGN_IN_SUCCESS,
+  SIGN_UP_SUCCESS,
+  SIGN_OUT_SUCCESS,
 } from "../actions/auth/auth.types";
 
 const initialState = {
@@ -18,14 +21,12 @@ const authReducer = (state = initialState, action: any) => {
     case SIGN_IN:
       return {
         ...state,
-        user: action.payload,
         loading: true,
         error: null,
       };
     case SIGN_UP:
       return {
         ...state,
-        user: action.payload,
         loading: true,
         error: null,
       };
@@ -41,20 +42,39 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         error: action.payload,
         loading: false,
-        user: null,
       };
     case SIGN_UP_ERROR:
       return {
         ...state,
         error: action.payload,
         loading: false,
-        user: null,
       };
     case SIGN_OUT_ERROR:
       return {
         ...state,
         error: action.payload,
         loading: false,
+      };
+    case SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        error: null,
+      };
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        error: null,
+      };
+    case SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        user: null,
+        loading: false,
+        error: null,
       };
     default:
       return state;
