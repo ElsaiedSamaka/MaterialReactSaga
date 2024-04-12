@@ -16,7 +16,6 @@ import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
-import GoogleIcon from "./GoogleIcon";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../core/actions/auth/auth.actions";
@@ -37,7 +36,7 @@ export default function SignUp() {
   const authSlice = useSelector((state: any) => state.auth);
   const { user, loading, error } = authSlice;
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
@@ -50,8 +49,8 @@ export default function SignUp() {
             },
           }}
         />
-        {error && <Toaster type='danger' message={error} />}
-        {user && <Toaster type='success' message='user created successfully' />}
+        {error && <Toaster type="danger" message={error} />}
+        {user && <Toaster type="success" message="user created successfully" />}
         <Box
           sx={(theme) => ({
             width: { xs: "100%", md: "50vw" },
@@ -123,29 +122,12 @@ export default function SignUp() {
                   </Typography>
                   <Typography level="body-sm">
                     Already have an account?{" "}
-                    <Link href="#replace-with-a-link" level="title-sm">
+                    <Link href="/auth/signin" level="title-sm">
                       Sign in!
                     </Link>
                   </Typography>
                 </Stack>
-                <Button
-                  variant="soft"
-                  color="neutral"
-                  fullWidth
-                  startDecorator={<GoogleIcon />}
-                >
-                  Continue with Google
-                </Button>
               </Stack>
-              <Divider
-                sx={(theme) => ({
-                  [theme.getColorSchemeSelector("light")]: {
-                    color: { xs: "#FFF", md: "text.tertiary" },
-                  },
-                })}
-              >
-                or
-              </Divider>
               <Stack gap={4} sx={{ mt: 2 }}>
                 <form
                   onSubmit={(event: React.FormEvent<SignInFormElement>) => {
@@ -159,7 +141,7 @@ export default function SignUp() {
                       persistent: formElements.persistent.checked,
                     };
                     dispatch(signup(data));
-                    user && router.push('/products')
+                    user && router.push("/products");
                   }}
                 >
                   <FormControl required>
@@ -229,16 +211,17 @@ export default function SignUp() {
           })}
         />
       </CssVarsProvider>
-      {loading && <Backdrop
-        open={false}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>}
+      {loading && (
+        <Backdrop
+          open={false}
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
     </>
   );
 }
-
 
 function ColorSchemeToggle(props: IconButtonProps) {
   const { onClick, ...other } = props;

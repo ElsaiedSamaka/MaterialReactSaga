@@ -34,7 +34,7 @@ function* createProduct({ payload }: any): Generator<any, void, any> {
     // call API endpoint to create a product
     const response = yield call(
       productsServices.postMultiPartFormData,
-      payload
+      payload,
     );
     let newProduct = response;
 

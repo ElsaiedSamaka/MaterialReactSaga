@@ -16,9 +16,10 @@ function* signin(action: any): Generator<any, void, any> {
   try {
     const payload = action.payload;
     const response = yield call(authServices.signin, payload);
-  } catch (error:any) {
+    yield put({ type: SIGN_IN_SUCCESS, payload: response.user });
+  } catch (error: any) {
     // Handle error
-    const errorMssg = error.response.data.error.message;
+    const errorMssg = error.response.data.message;
     yield put({ type: SIGN_IN_ERROR, payload: errorMssg });
   }
 }
@@ -38,7 +39,7 @@ function* signup(action: any): Generator<any, void, any> {
 function* logout(payload: any): Generator<any, void, any> {
   try {
     const response = yield call(authServices.signout, payload);
-  } catch (error:any) {
+  } catch (error: any) {
     // Handle error
     const errorMssg = error.response.data.error.message;
     yield put({ type: SIGN_OUT_ERROR, payload: errorMssg });
@@ -50,7 +51,6 @@ export function* authSaga() {
   yield takeEvery(SIGN_UP, signup);
   yield takeEvery(SIGN_OUT, logout);
 }
-
 
 // function* resetPassword() {
 //   try {

@@ -4,19 +4,19 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
+import PropTypes from "prop-types";
 
-export default function Toaster({ message, type }) {
+export default function Toaster({ message, type }:any) {
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
-    console.log('handle close')
     setOpen(false);
   };
   useEffect(() => {
     setTimeout(() => {
       handleClose();
     }, 3000);
-  },[]);
+  }, []);
 
   return (
     <Snackbar
@@ -42,3 +42,7 @@ export default function Toaster({ message, type }) {
     </Snackbar>
   );
 }
+Toaster.proptypes = {
+  message: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["danger", "success", "error"]).isRequired,
+};

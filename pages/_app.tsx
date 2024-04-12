@@ -1,15 +1,12 @@
 import "@fontsource/inter";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import {
-  CssVarsProvider,
-  StyledEngineProvider,
-} from "@mui/joy/styles";
+import { CssVarsProvider, StyledEngineProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { Provider } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
 import store from "../core/store/configureStore";
-import {ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 // Create a theme instance
 const theme = createTheme({

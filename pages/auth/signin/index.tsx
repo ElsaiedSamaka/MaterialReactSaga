@@ -16,7 +16,10 @@ import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
-import GoogleIcon from "./GoogleIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { Toaster } from "../../../components/shared";
+import { signin } from "../../../core/actions/auth/auth.actions";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -27,31 +30,11 @@ interface SignInFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
-function ColorSchemeToggle(props: IconButtonProps) {
-  const { onClick, ...other } = props;
-  const { mode, setMode } = useColorScheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => setMounted(true), []);
-
-  return (
-    <IconButton
-      aria-label="toggle light/dark mode"
-      size="sm"
-      variant="outlined"
-      disabled={!mounted}
-      onClick={(event) => {
-        setMode(mode === "light" ? "dark" : "light");
-        onClick?.(event);
-      }}
-      {...other}
-    >
-      {mode === "light" ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
-    </IconButton>
-  );
-}
-
 export default function SignIn() {
+  const authSlice = useSelector((state: any) => state.auth);
+  const { user, loading, error } = authSlice;
+  const dispatch = useDispatch();
+  const router = useRouter();
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
       <CssBaseline />
@@ -63,6 +46,7 @@ export default function SignIn() {
           },
         }}
       />
+      {error && <Toaster type="danger" message={error} />}
       <Box
         sx={(theme) => ({
           width: { xs: "100%", md: "50vw" },
@@ -134,29 +118,12 @@ export default function SignIn() {
                 </Typography>
                 <Typography level="body-sm">
                   New to company?{" "}
-                  <Link href="#replace-with-a-link" level="title-sm">
+                  <Link href="/auth/signup" level="title-sm">
                     Sign up!
                   </Link>
                 </Typography>
               </Stack>
-              <Button
-                variant="soft"
-                color="neutral"
-                fullWidth
-                startDecorator={<GoogleIcon />}
-              >
-                Continue with Google
-              </Button>
             </Stack>
-            <Divider
-              sx={(theme) => ({
-                [theme.getColorSchemeSelector("light")]: {
-                  color: { xs: "#FFF", md: "text.tertiary" },
-                },
-              })}
-            >
-              or
-            </Divider>
             <Stack gap={4} sx={{ mt: 2 }}>
               <form
                 onSubmit={(event: React.FormEvent<SignInFormElement>) => {
@@ -167,7 +134,8 @@ export default function SignIn() {
                     password: formElements.password.value,
                     persistent: formElements.persistent.checked,
                   };
-                  alert(JSON.stringify(data, null, 2));
+                  dispatch(signin(data));
+                  user && router.push("/products");
                 }}
               >
                 <FormControl required>
@@ -191,7 +159,7 @@ export default function SignIn() {
                       Forgot your password?
                     </Link>
                   </Box>
-                  <Button type="submit" fullWidth>
+                  <Button className="bg-blue-950" type="submit" fullWidth>
                     Sign in
                   </Button>
                 </Stack>
@@ -229,5 +197,28 @@ export default function SignIn() {
         })}
       />
     </CssVarsProvider>
+  );
+}
+function ColorSchemeToggle(props: IconButtonProps) {
+  const { onClick, ...other } = props;
+  const { mode, setMode } = useColorScheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => setMounted(true), []);
+
+  return (
+    <IconButton
+      aria-label="toggle light/dark mode"
+      size="sm"
+      variant="outlined"
+      disabled={!mounted}
+      onClick={(event) => {
+        setMode(mode === "light" ? "dark" : "light");
+        onClick?.(event);
+      }}
+      {...other}
+    >
+      {mode === "light" ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
+    </IconButton>
   );
 }
