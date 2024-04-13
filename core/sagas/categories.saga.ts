@@ -17,16 +17,16 @@ function* fetchCategories(): Generator<any, void, any> {
   try {
     const categories: any = yield call(categoriesService.get);
     yield put(setCategories(categories));
-  } catch (error:any) {
+  } catch (error: any) {
     yield put({ type: FETCH_CATEGORIES_ERROR, payload: error.message });
   }
 }
 
 // function* createCategory({ payload }: any): Generator<any, void, any> {
 //   try {
-//  
+//
 //   } catch (error) {
-// 
+//
 //   }
 // }
 

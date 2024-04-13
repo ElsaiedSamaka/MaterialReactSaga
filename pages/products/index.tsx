@@ -1,5 +1,5 @@
 import * as React from "react";
-import classNames from 'classnames'
+import classNames from "classnames";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
@@ -140,7 +140,7 @@ function BasicModalDialog() {
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
     dispatch(createProduct(formData));
-    // setOpen(false);
+    setOpen(false);
   };
 
   return (
@@ -155,28 +155,34 @@ function BasicModalDialog() {
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
               <div className="flex space-x-2">
-<Tooltip
-                title="product main image"
-                arrow
-                placement="bottom"
-                size="md"
-                variant="outlined"
-              >
-                <img
-                  src={formData.img ? URL.createObjectURL(formData.img) : ""}
-                  alt="product"
-                  className={classNames({'invisible':!formData.img},'w-20 h-20')}
-                />
-              </Tooltip>
-              <Button className="!bg-transparent !text-black" component="label">
-                <input
-                  type="file"
-                  title="img"
-                  placeholder=""
-                  name="img"
-                  onChange={handleFileUpload}
-                />
-              </Button>
+                <Tooltip
+                  title="product main image"
+                  arrow
+                  placement="bottom"
+                  size="md"
+                  variant="outlined"
+                >
+                  <img
+                    src={formData.img ? URL.createObjectURL(formData.img) : ""}
+                    alt="product"
+                    className={classNames(
+                      { invisible: !formData.img },
+                      "w-20 h-20",
+                    )}
+                  />
+                </Tooltip>
+                <Button
+                  className="!bg-transparent !text-black"
+                  component="label"
+                >
+                  <input
+                    type="file"
+                    title="img"
+                    placeholder=""
+                    name="img"
+                    onChange={handleFileUpload}
+                  />
+                </Button>
               </div>
               <div className="flex space-x-2">
                 <FormControl>
