@@ -5,7 +5,7 @@ import { CssVarsProvider, StyledEngineProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, { persistor  } from "../core/store/configureStore";
+import store, { persistor } from "../core/store/configureStore";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 // Create a theme instance
@@ -26,11 +26,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CssVarsProvider>
           <CssBaseline />
           <PersistGate loading={null} persistor={persistor}>
-          <Provider store={store}>
-            {/* <Layout> */}
-            {getLayout(<Component {...pageProps} />)}
-            {/* </Layout> */}
-          </Provider>
+            <Provider store={store}>
+              {/* <Layout> */}
+              {getLayout(<Component {...pageProps} />)}
+              {/* </Layout> */}
+            </Provider>
           </PersistGate>
         </CssVarsProvider>
       </ThemeProvider>

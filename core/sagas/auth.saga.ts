@@ -16,7 +16,10 @@ function* signin(action: any): Generator<any, void, any> {
   try {
     const payload = action.payload;
     const response = yield call(authServices.signin, payload);
-    yield put({ type: SIGN_IN_SUCCESS, payload: {user: response.user,tokens:response.tokens} });
+    yield put({
+      type: SIGN_IN_SUCCESS,
+      payload: { user: response.user, tokens: response.tokens },
+    });
   } catch (error: any) {
     // Handle error
     const errorMssg = error.response.data.message;
@@ -41,9 +44,11 @@ function* signup(action: any): Generator<any, void, any> {
 
 function* logout(action: any): Generator<any, void, any> {
   try {
-        const payload = action.payload;
+    const payload = action.payload;
 
-    const response = yield call(authServices.signout, { refreshToken: payload });
+    const response = yield call(authServices.signout, {
+      refreshToken: payload,
+    });
     yield put({ type: SIGN_OUT_SUCCESS });
   } catch (error: any) {
     // Handle error
@@ -60,25 +65,25 @@ export function* authSaga() {
 
 // function* resetPassword() {
 //   try {
-// 
+//
 //   } catch (error) {
-// 
+//
 //   }
 // }
 
 // function* verifyEmail() {
 //   try {
-// 
+//
 //   } catch (error) {
-// 
+//
 //   }
 // }
 
 // function* sendVerificationEmail() {
 //   try {
-// 
+//
 //   } catch (error) {
-// 
+//
 //   }
 // }
 
@@ -86,6 +91,6 @@ export function* authSaga() {
 //   try {
 //
 //   } catch (error) {
-// 
+//
 //   }
 // }

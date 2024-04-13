@@ -6,7 +6,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import PropTypes from "prop-types";
 
-export default function Toaster({ message, type }:any) {
+export default function Toaster({ message, type }: any) {
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {

@@ -19,16 +19,6 @@ function* fetchProducts(): Generator<any, void, any> {
   }
 }
 
-// function* createProduct({ payload }) {
-//   try {
-//     // Send API request to create product
-//     // const response = yield call(api.createProduct, payload);
-//     // Handle response accordingly
-//   } catch (error) {
-//     // Handle error
-//   }
-// }
-
 function* createProduct({ payload }: any): Generator<any, void, any> {
   try {
     // call API endpoint to create a product

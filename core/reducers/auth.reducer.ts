@@ -62,7 +62,7 @@ const authReducer = (state = initialState, action: any) => {
         user: action.payload.user,
         loading: false,
         error: null,
-        tokens: action.payload.tokens
+        tokens: action.payload.tokens,
       };
     case SIGN_UP_SUCCESS:
       return {
@@ -78,7 +78,7 @@ const authReducer = (state = initialState, action: any) => {
         user: null,
         loading: false,
         error: null,
-        tokens:null
+        tokens: null,
       };
     default:
       return state;

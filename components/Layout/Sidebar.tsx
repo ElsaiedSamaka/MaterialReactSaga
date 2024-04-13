@@ -15,13 +15,13 @@ import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
 import { signout } from "../../core/actions/auth/auth.actions";
-        import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 export default function Sidebar() {
   const authSlice = useSelector((state: any) => state.auth);
-  const { user, loading, error,tokens } = authSlice;
+  const { user, loading, error, tokens } = authSlice;
   const dispatch = useDispatch();
   const router = useRouter();
   return (
@@ -120,10 +120,11 @@ export default function Sidebar() {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-
         <AccountCircleTwoToneIcon />
         <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="body-xs">{user?.email?user?.email : 'please login'}</Typography>
+          <Typography level="body-xs">
+            {user?.email ? user?.email : "please login"}
+          </Typography>
         </Box>
         <IconButton
           size="sm"

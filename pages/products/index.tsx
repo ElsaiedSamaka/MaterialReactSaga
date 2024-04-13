@@ -126,13 +126,12 @@ function BasicModalDialog() {
       });
     }
   };
-  const handleFileUpload = (e: any) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = event?.target?.files[0];
     setFormData({
       ...formData,
       img: file,
     });
-    console.log('file',file)
   };
 
   const handleFormSubmit = (event: any) => {
@@ -152,12 +151,8 @@ function BasicModalDialog() {
           <DialogContent>Fill in the information of the product.</DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
-            <Button component="label">
-                <input
-                  type="file"
-                  name="img"
-                  onChange={handleFileUpload}
-                />
+              <Button component="label">
+                <input type="file" name="img" onChange={handleFileUpload} />
               </Button>
               <div className="flex space-x-2">
                 <FormControl>
