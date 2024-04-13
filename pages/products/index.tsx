@@ -1,4 +1,5 @@
 import * as React from "react";
+import classNames from 'classnames'
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
@@ -153,7 +154,8 @@ function BasicModalDialog() {
           <DialogContent>Fill in the information of the product.</DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
-              <Tooltip
+              <div className="flex space-x-2">
+<Tooltip
                 title="product main image"
                 arrow
                 placement="bottom"
@@ -163,7 +165,7 @@ function BasicModalDialog() {
                 <img
                   src={formData.img ? URL.createObjectURL(formData.img) : ""}
                   alt="product"
-                  className="w-20 h-20"
+                  className={classNames({'invisible':!formData.img},'w-20 h-20')}
                 />
               </Tooltip>
               <Button className="!bg-transparent !text-black" component="label">
@@ -175,6 +177,7 @@ function BasicModalDialog() {
                   onChange={handleFileUpload}
                 />
               </Button>
+              </div>
               <div className="flex space-x-2">
                 <FormControl>
                   <FormLabel>Name</FormLabel>
