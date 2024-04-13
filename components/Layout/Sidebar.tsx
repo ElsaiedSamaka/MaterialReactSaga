@@ -26,7 +26,7 @@ export default function Sidebar() {
   const router = useRouter();
   return (
     <Sheet
-      className="Sidebar"
+      className="Sidebar !z-40"
       sx={{
         position: { xs: "fixed", md: "sticky" },
         transform: {

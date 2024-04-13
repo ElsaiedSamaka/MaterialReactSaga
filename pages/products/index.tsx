@@ -22,6 +22,7 @@ import {
   ModalDialog,
   Stack,
   Option,
+  Textarea,
 } from "@mui/joy";
 function ProductsPage() {
   return (
@@ -145,14 +146,20 @@ function BasicModalDialog() {
       <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
         New product
       </Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal className='!z-50' open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
           <DialogTitle>Create new product</DialogTitle>
           <DialogContent>Fill in the information of the product.</DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
-              <Button component="label">
-                <input type="file" name="img" onChange={handleFileUpload} />
+              <Button className="!bg-transparent !text-black" component="label">
+                <input
+                  type="file"
+                  title="img"
+                  placeholder=""
+                  name="img"
+                  onChange={handleFileUpload}
+                />
               </Button>
               <div className="flex space-x-2">
                 <FormControl>
@@ -166,17 +173,6 @@ function BasicModalDialog() {
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Description</FormLabel>
-                  <Input
-                    required
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-              </div>
-              <div className="flex space-x-2">
-                <FormControl>
                   <FormLabel>Price</FormLabel>
                   <Input
                     required
@@ -184,21 +180,6 @@ function BasicModalDialog() {
                     value={formData.price}
                     onChange={handleInputChange}
                   />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    color="neutral"
-                    placeholder="Choose one…"
-                    variant="outlined"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                  >
-                    <Option value="1">1</Option>
-                    <Option value="2">1</Option>
-                    <Option value="3">1</Option>
-                  </Select>
                 </FormControl>
               </div>
               <div className="flex space-x-2">
@@ -219,6 +200,34 @@ function BasicModalDialog() {
                     value={formData.sizes}
                     onChange={handleInputChange}
                   />
+                </FormControl>
+              </div>
+              <div className="flex space-x-2">
+                <FormControl>
+                  <FormLabel>Description</FormLabel>
+                  <Textarea
+                    maxRows={2}
+                    minRows={2}
+                    required
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    color="neutral"
+                    placeholder="Choose one…"
+                    variant="outlined"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                  >
+                    <Option value="1">1</Option>
+                    <Option value="2">1</Option>
+                    <Option value="3">1</Option>
+                  </Select>
                 </FormControl>
               </div>
               <Button className="bg-black p-2 rounded text-white" type="submit">
