@@ -25,6 +25,8 @@ import {
   Option,
   Textarea,
   Tooltip,
+  IconButton,
+  SelectStaticProps,
 } from "@mui/joy";
 function ProductsPage() {
   return (
@@ -105,6 +107,7 @@ export default ProductsPage;
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../core/actions/products/products.actions";
+import { CloseRounded } from "@mui/icons-material";
 
 function BasicModalDialog() {
   const [open, setOpen] = useState(false);
@@ -117,6 +120,7 @@ function BasicModalDialog() {
     colors: "",
     sizes: "",
   });
+    const action: SelectStaticProps["action"] = React.useRef(null);
 
   const dispatch = useDispatch();
 
@@ -167,7 +171,7 @@ function BasicModalDialog() {
                     alt="product"
                     className={classNames(
                       { invisible: !formData.img },
-                      "w-20 h-20",
+                      "w-20 h-20"
                     )}
                   />
                 </Tooltip>
@@ -240,20 +244,55 @@ function BasicModalDialog() {
                 <FormControl>
                   <FormLabel>Category</FormLabel>
                   <Select
-                    color="neutral"
-                    placeholder="Choose one…"
-                    variant="outlined"
-                    name="category"
+                    action={action}
                     value={formData.category}
-                    onChange={handleInputChange}
+                    placeholder="Select categ…"
+                    onChange={(e, newValue) => setFormData((prevState)=>{
+                      return {
+                        ...prevState,
+                        category: newValue
+                      }
+                    })}
+                    {...(formData.category && {
+                      // display the button and remove select indicator
+                      // when user has selected a value
+                      endDecorator: (
+                        <IconButton
+                          size="sm"
+                          variant="plain"
+                          color="neutral"
+                          onMouseDown={(event) => {
+                            // don't open the popup when clicking on this button
+                            event.stopPropagation();
+                          }}
+                          onClick={() => {
+                            setFormData((prevState)=>{
+                              return {
+                                ...prevState,
+                                category: null
+                              }
+                            })
+                            action.current?.focusVisible();
+                          }}
+                        >
+                          <CloseRounded />
+                        </IconButton>
+                      ),
+                      indicator: null,
+                    })}
+                    sx={{ minWidth: 160 }}
                   >
-                    <Option value="1">1</Option>
-                    <Option value="2">1</Option>
-                    <Option value="3">1</Option>
+                    <Option value="dog">Dog</Option>
+                    <Option value="cat">Cat</Option>
+                    <Option value="fish">Fish</Option>
+                    <Option value="bird">Bird</Option>
                   </Select>
                 </FormControl>
               </div>
-              <Button className="bg-black p-2 rounded text-white" type="submit">
+              <Button
+                className="!bg-blue-950 !text-white p-2 rounded"
+                type="submit"
+              >
                 Submit
               </Button>
             </Stack>
