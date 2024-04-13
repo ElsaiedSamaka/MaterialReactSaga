@@ -23,6 +23,7 @@ import {
   Stack,
   Option,
   Textarea,
+  Tooltip,
 } from "@mui/joy";
 function ProductsPage() {
   return (
@@ -146,12 +147,25 @@ function BasicModalDialog() {
       <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
         New product
       </Button>
-      <Modal className='!z-50' open={open} onClose={() => setOpen(false)}>
+      <Modal className="!z-50" open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
           <DialogTitle>Create new product</DialogTitle>
           <DialogContent>Fill in the information of the product.</DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Stack spacing={2}>
+              <Tooltip
+                title="product main image"
+                arrow
+                placement="bottom"
+                size="md"
+                variant="outlined"
+              >
+                <img
+                  src={formData.img ? URL.createObjectURL(formData.img) : ""}
+                  alt="product"
+                  className="w-20 h-20"
+                />
+              </Tooltip>
               <Button className="!bg-transparent !text-black" component="label">
                 <input
                   type="file"
