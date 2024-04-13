@@ -8,34 +8,28 @@ import {
   CREATE_CATEGORY_ERROR,
   UPDATE_CATEGORY_ERROR,
   DELETE_CATEGORY_ERROR,
-} from "../actions/categories/categories.types.ts";
-import { setCategory } from "../actions/categories/categories.actions";
+} from "../actions/categories/categories.types";
+import { setCategories } from "../actions/categories/categories.actions";
 import categoriesService from "../services/categories.service";
+import { put, call, takeLatest, takeEvery } from "redux-saga/effects";
 
 function* fetchCategories(): Generator<any, void, any> {
   try {
     const categories: any = yield call(categoriesService.get);
-    yield put(setCategory(categories));
-  } catch (error) {
-    yield put({ type: FETCH_PRODUCTS_ERROR, payload: error.message });
+    yield put(setCategories(categories));
+  } catch (error:any) {
+    yield put({ type: FETCH_CATEGORIES_ERROR, payload: error.message });
   }
 }
 
-function* createCategory({ payload }: any): Generator<any, void, any> {
-  try {
-    const response = yield call(
-      categoriesService.postMultiPartFormData,
-      payload,
-    );
-    let newProduct = response;
-
-    yield put(setCategory([...products, newProduct]));
-  } catch (error) {
-    // Handle error
-  }
-}
+// function* createCategory({ payload }: any): Generator<any, void, any> {
+//   try {
+//  
+//   } catch (error) {
+// 
+//   }
+// }
 
 export function* categoriesSaga() {
   yield takeLatest(FETCH_CATEGORIES, fetchCategories);
-  yield takeLatest(CREATE_CATEGORY, createCategory);
 }
