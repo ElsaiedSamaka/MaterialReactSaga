@@ -40,6 +40,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProducts,
   setProducts,
+  deleteProduct
 } from "../../core/actions/products/products.actions";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -85,7 +86,8 @@ function stableSort<T>(
   return stabilizedThis?.map((el) => el[0]);
 }
 
-function RowMenu() {
+function RowMenu({productId}) {
+  const dispatch = useDispatch();
   return (
     <Dropdown>
       <MenuButton
@@ -97,7 +99,9 @@ function RowMenu() {
       <Menu size="sm" sx={{ minWidth: 140 }}>
         <MenuItem>Edit</MenuItem>
         <Divider />
-        <MenuItem color="danger">Delete</MenuItem>
+        <MenuItem color="danger" onClick={()=>{
+          dispatch(deleteProduct(productId))
+        }}>Delete</MenuItem>
       </Menu>
     </Dropdown>
   );
@@ -113,6 +117,7 @@ export default function ProductsTable() {
   React.useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
   const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">
@@ -343,7 +348,7 @@ export default function ProductsTable() {
                   </td>
                   <td>
                     <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                      <RowMenu />
+                      <RowMenu productId={product.id} />
                     </Box>
                   </td>
                 </tr>

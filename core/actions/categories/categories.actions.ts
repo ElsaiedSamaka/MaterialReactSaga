@@ -15,17 +15,17 @@ export const setCategories = (categories: any) => ({
   payload: categories,
 });
 
-export const createProduct = (categoryData: any) => ({
+export const createCategory = (categoryData: any) => ({
   type: CREATE_CATEGORY,
   payload: categoryData,
 });
 
-export const updateProduct = (categoryId: string, updatedData: any) => ({
+export const updateCategory = (categoryId: string, updatedData: any) => ({
   type: UPDATE_CATEGORY,
   payload: { categoryId, updatedData },
 });
 
-export const deleteProduct = (categoryId: any) => ({
+export const deleteCategory = (categoryId: any) => ({
   type: DELETE_CATEGORY,
   payload: categoryId,
 });

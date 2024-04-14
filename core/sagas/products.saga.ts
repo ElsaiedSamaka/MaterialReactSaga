@@ -27,7 +27,6 @@ function* createProduct({ payload }: any): Generator<any, void, any> {
       payload,
     );
     let newProduct = response;
-
     // Dispatch an action to update state with the new product
     yield put(setProducts([...products, newProduct]));
   } catch (error) {
@@ -46,58 +45,19 @@ function* createProduct({ payload }: any): Generator<any, void, any> {
 //   }
 // }
 
-// function* updateProduct({ payload }): Generator<any, void, any> {
-//   try {
-//     const { productId, updatedData } = payload;
-
-//     // Assuming you have an API endpoint to update a product
-//     const response = yield fetch(`https://api.example.com/products/${productId}`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(updatedData),
-//     });
-
-//     const updatedProduct = yield response.json();
-
-//     // Dispatch an action to update state with the updated product
-//     const updatedProducts = products.map(product =>
-//       product.id === updatedProduct.id ? updatedProduct : product
-//     );
-//     yield put(setProducts(updatedProducts));
-//   } catch (error) {
-//     // Handle error
-//   }
-// }
-// function* deleteProduct({ payload }): Generator<any, void, any> {
-//   try {
-//     // Send API request to delete product with payload as productId
-//     // const response = yield call(api.deleteProduct, payload);
-//     // Handle response accordingly
-//   } catch (error) {
-//     // Handle error
-//   }
-// }
-
-// function* deleteProduct({ payload }): Generator<any, void, any> {
-//   try {
-//     // Assuming you have an API endpoint to delete a product
-//     yield fetch(`https://api.example.com/products/${payload}`, {
-//       method: "DELETE",
-//     });
-
-//     // Dispatch an action to update state by removing the deleted product
-//     const updatedProducts = products.filter(product => product.id !== payload);
-//     yield put(setProducts(updatedProducts));
-//   } catch (error) {
-//     // Handle error
-//   }
-// }
+function* deleteProduct({ payload }): Generator<any, void, any> {
+  try {
+    // Send API request to delete product with payload as productId
+    const response = yield call(productsServices.remove, payload);
+    // Handle response accordingly
+  } catch (error) {
+    // Handle error
+  }
+}
 
 export function* productsSaga() {
   yield takeLatest(FETCH_PRODUCTS, fetchProducts);
   yield takeLatest(CREATE_PRODUCT, createProduct);
   // yield takeLatest(UPDATE_PRODUCT, updateProduct);
-  // yield takeLatest(DELETE_PRODUCT, deleteProduct);
+  yield takeLatest(DELETE_PRODUCT, deleteProduct);
 }

@@ -95,7 +95,7 @@ function ProductsPage() {
       </Box>
       <BasicModalDialog />
       <ProductsTable />
-      <ProductsList />
+      {/* <ProductsList /> */}
     </Box>
   );
 }
@@ -104,13 +104,11 @@ ProductsPage.getLayout = (page: any) => {
 };
 
 export default ProductsPage;
-import { useState,useEffect } from "react";
-import { useDispatch ,useSelector} from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../core/actions/products/products.actions";
 import { CloseRounded } from "@mui/icons-material";
-import {
-  fetchCategories
-} from "../../core/actions/categories/categories.actions";
+import { fetchCategories } from "../../core/actions/categories/categories.actions";
 function BasicModalDialog() {
   // Hooks
   const [open, setOpen] = useState(false);
@@ -126,9 +124,9 @@ function BasicModalDialog() {
     sizes: "",
   });
   const action: SelectStaticProps["action"] = React.useRef(null);
-  useEffect(()=>{
-   dispatch(fetchCategories())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
   // Methods
   const handleInputChange = (e: any) => {
     if (e && e.target && e.target.name) {
@@ -253,7 +251,7 @@ function BasicModalDialog() {
                     value={formData.category}
                     placeholder="Select categ…"
                     onChange={(e, newValue) =>
-                      setFormData((prevState:any) => {
+                      setFormData((prevState: any) => {
                         return {
                           ...prevState,
                           category: newValue,
@@ -289,7 +287,11 @@ function BasicModalDialog() {
                     })}
                     sx={{ minWidth: 160 }}
                   >
-                   {categoriesSlice?.items?.map((item,i)=>( <Option key={i} value={item._id}>{item.name}</Option>))}
+                    {categoriesSlice?.items?.map((item, i) => (
+                      <Option key={i} value={item._id}>
+                        {item.name}
+                      </Option>
+                    ))}
                   </Select>
                 </FormControl>
               </div>
