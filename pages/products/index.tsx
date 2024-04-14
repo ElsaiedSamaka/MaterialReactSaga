@@ -104,13 +104,18 @@ ProductsPage.getLayout = (page: any) => {
 };
 
 export default ProductsPage;
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState,useEffect } from "react";
+import { useDispatch ,useSelector} from "react-redux";
 import { createProduct } from "../../core/actions/products/products.actions";
 import { CloseRounded } from "@mui/icons-material";
-
+import {
+  fetchCategories
+} from "../../core/actions/categories/categories.actions";
 function BasicModalDialog() {
+  // Hooks
   const [open, setOpen] = useState(false);
+  const categoriesSlice = useSelector((state: any) => state.categories);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -120,10 +125,11 @@ function BasicModalDialog() {
     colors: "",
     sizes: "",
   });
-    const action: SelectStaticProps["action"] = React.useRef(null);
-
-  const dispatch = useDispatch();
-
+  const action: SelectStaticProps["action"] = React.useRef(null);
+  useEffect(()=>{
+   dispatch(fetchCategories())
+  },[dispatch])
+  // Methods
   const handleInputChange = (e: any) => {
     if (e && e.target && e.target.name) {
       // Check if e and e.target are not null
@@ -140,7 +146,6 @@ function BasicModalDialog() {
       img: file,
     });
   };
-
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
     dispatch(createProduct(formData));
@@ -171,7 +176,7 @@ function BasicModalDialog() {
                     alt="product"
                     className={classNames(
                       { invisible: !formData.img },
-                      "w-20 h-20"
+                      "w-20 h-20",
                     )}
                   />
                 </Tooltip>
@@ -247,12 +252,14 @@ function BasicModalDialog() {
                     action={action}
                     value={formData.category}
                     placeholder="Select categ…"
-                    onChange={(e, newValue) => setFormData((prevState)=>{
-                      return {
-                        ...prevState,
-                        category: newValue
-                      }
-                    })}
+                    onChange={(e, newValue) =>
+                      setFormData((prevState) => {
+                        return {
+                          ...prevState,
+                          category: newValue,
+                        };
+                      })
+                    }
                     {...(formData.category && {
                       // display the button and remove select indicator
                       // when user has selected a value
@@ -266,12 +273,12 @@ function BasicModalDialog() {
                             event.stopPropagation();
                           }}
                           onClick={() => {
-                            setFormData((prevState)=>{
+                            setFormData((prevState) => {
                               return {
                                 ...prevState,
-                                category: null
-                              }
-                            })
+                                category: null,
+                              };
+                            });
                             action.current?.focusVisible();
                           }}
                         >
@@ -282,10 +289,7 @@ function BasicModalDialog() {
                     })}
                     sx={{ minWidth: 160 }}
                   >
-                    <Option value="dog">Dog</Option>
-                    <Option value="cat">Cat</Option>
-                    <Option value="fish">Fish</Option>
-                    <Option value="bird">Bird</Option>
+                   {categoriesSlice?.items?.map((item,i)=>( <Option key={i} value={item._id}>{item.name}</Option>))}
                   </Select>
                 </FormControl>
               </div>
