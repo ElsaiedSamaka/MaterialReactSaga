@@ -253,7 +253,7 @@ function BasicModalDialog() {
                     value={formData.category}
                     placeholder="Select categ…"
                     onChange={(e, newValue) =>
-                      setFormData((prevState) => {
+                      setFormData((prevState:any) => {
                         return {
                           ...prevState,
                           category: newValue,
@@ -273,7 +273,7 @@ function BasicModalDialog() {
                             event.stopPropagation();
                           }}
                           onClick={() => {
-                            setFormData((prevState) => {
+                            setFormData((prevState: any) => {
                               return {
                                 ...prevState,
                                 category: null,
