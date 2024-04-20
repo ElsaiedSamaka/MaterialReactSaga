@@ -69,7 +69,7 @@ const productsService = {
 
   patch: async (id: string, body: object) => {
     try {
-      const response = await apiservice.put(`product/${id}`, body);
+      const response = await apiservice.patch(`product/${id}`, body);
       return response;
     } catch (error) {
       throw error;

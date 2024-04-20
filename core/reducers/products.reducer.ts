@@ -1,11 +1,4 @@
-import {
-  SET_PRODUCTS,
-  FETCH_PRODUCTS,
-  CREATE_PRODUCT,
-  UPDATE_PRODUCT,
-  DELETE_PRODUCT,
-  FETCH_PRODUCTS_ERROR,
-} from "../actions/products/products.types";
+import * as types from '../actions/products/products.types';
 
 const initialState = {
   items: [],
@@ -13,27 +6,30 @@ const initialState = {
   error: null,
 };
 
-const productsReducer = (state = initialState, action: any) => {
+const productsReducer = (state = initialState, action:any) => {
   switch (action.type) {
-    case FETCH_PRODUCTS:
+    case types.FETCH_PRODUCTS:
+    case types.CREATE_PRODUCT:
+    case types.UPDATE_PRODUCT:
+    case types.DELETE_PRODUCT:
       return {
         ...state,
-        items: action.payload,
         loading: true,
         error: null,
       };
-    case SET_PRODUCTS:
+    case types.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
         items: action.payload,
         loading: false,
       };
-    case CREATE_PRODUCT:
+    case types.CREATE_PRODUCT_SUCCESS:
       return {
         ...state,
         items: [...state.items, action.payload],
+        loading: false,
       };
-    case UPDATE_PRODUCT:
+    case types.UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
         items: state.items.map((product) =>
@@ -41,17 +37,22 @@ const productsReducer = (state = initialState, action: any) => {
             ? { ...product, ...action.payload.updatedData }
             : product,
         ),
+        loading: false,
       };
-    case DELETE_PRODUCT:
+    case types.DELETE_PRODUCT_SUCCESS:
       return {
         ...state,
         items: state.items.filter((product) => product.id !== action.payload),
+        loading: false,
       };
-    case FETCH_PRODUCTS_ERROR:
+    case types.FETCH_PRODUCTS_ERROR:
+    case types.CREATE_PRODUCT_ERROR:
+    case types.UPDATE_PRODUCT_ERROR:
+    case types.DELETE_PRODUCT_ERROR:
       return {
         ...state,
-        error: action.payload,
         loading: false,
+        error: action.payload,
       };
     default:
       return state;

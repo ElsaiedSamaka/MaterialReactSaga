@@ -39,7 +39,6 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProducts,
-  setProducts,
   deleteProduct
 } from "../../core/actions/products/products.actions";
 
@@ -305,15 +304,15 @@ export default function ProductsTable() {
                   <td style={{ textAlign: "center", width: 120 }}>
                     <Checkbox
                       size="sm"
-                      checked={selected.includes(product.id)}
+                      checked={selected.includes(product?.id)}
                       color={
-                        selected.includes(product.id) ? "primary" : undefined
+                        selected.includes(product?.id) ? "primary" : undefined
                       }
                       onChange={(event) => {
                         setSelected((ids) =>
                           event.target.checked
-                            ? ids.concat(row.id)
-                            : ids.filter((itemId) => itemId !== row.id),
+                            ? ids.concat(row?.id)
+                            : ids.filter((itemId) => itemId !== row?.id),
                         );
                       }}
                       slotProps={{ checkbox: { sx: { textAlign: "left" } } }}
